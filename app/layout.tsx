@@ -1,33 +1,26 @@
-import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
-
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
-});
+import type { Metadata } from 'next'
+import './globals.css'
+import { ThemeProvider } from '@/components/ThemeProvider'
 
 export const metadata: Metadata = {
-  title: "EDDY FITNESS CLUB",
-  description: "Improve yourself with EDDY FITNESS CLUB",
-};
+  title: {
+    default: 'Eddy Fitness Club | Fit, Fitter, Fittest!',
+    template: '%s | Eddy Fitness Club'
+  },
+  description: 'Join Eddy Fitness Club with branches across Rishikesh and Dehradun.',
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html
-      lang="en"
-      className={`${montserrat.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
-      <body className="min-h-full flex flex-col font-sans">
+    <html lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
@@ -35,5 +28,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

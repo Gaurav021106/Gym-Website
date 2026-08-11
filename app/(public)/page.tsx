@@ -14,1417 +14,351 @@ import {
   Clock,
   Users,
   Trophy,
-  Award,
+  MapPin,
 } from "lucide-react";
 
 export default function Home() {
+  // Animation Variants for staggered children
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
   const services = [
     {
       title: "Strength Training",
-      desc: "Build muscle and maximize strength with expert training programs.",
-      icon: <Dumbbell size={55} />,
+      desc: "Build lean muscle and maximize your strength with expert, form-focused training programs.",
+      icon: <Dumbbell className="w-10 h-10" />,
     },
-
     {
-      title: "Fat Loss",
-      desc: "Burn fat efficiently with customized workouts and diet plans.",
-      icon: <Flame size={55} />,
+      title: "Fat Loss & Conditioning",
+      desc: "Burn fat efficiently with our high-intensity X-Training and customized cardio schedules.",
+      icon: <Flame className="w-10 h-10" />,
     },
-
     {
       title: "Personal Training",
-      desc: "1-on-1 coaching tailored according to your goals.",
-      icon: <User size={55} />,
+      desc: "1-on-1 coaching tailored specifically to your body type, limitations, and fitness goals.",
+      icon: <User className="w-10 h-10" />,
     },
-
     {
-      title: "Online Coaching",
-      desc: "Train from anywhere with Eddy's online fitness programs.",
-      icon: <Salad size={55} />,
+      title: "Nutrition & Online Coaching",
+      desc: "Certified nutritionist-backed diet plans and remote workout schedules to keep you on track anywhere.",
+      icon: <Salad className="w-10 h-10" />,
     },
   ];
+
+  const reviews = [
+    {
+      name: "Siddharth N.",
+      branch: "Doiwala Branch",
+      quote:
+        "The best gym environment I've experienced in Uttarakhand. The trainers are incredibly knowledgeable, and the diet plans actually work. Highly recommend the late-night sessions!",
+      rating: 5,
+    },
+    {
+      name: "Priya R.",
+      branch: "Bhaniawala Branch",
+      quote:
+        "Eddy completely changed my lifestyle. The personalized coaching and constant motivation helped me lose 12kg safely. It's more than a gym; it's a community.",
+      rating: 5,
+    },
+    {
+      name: "Amit S.",
+      branch: "Rishikesh Branch",
+      quote:
+        "State-of-the-art equipment and a fantastic CrossFit setup. The trainers pay attention to everyone, whether you are a beginner or a pro bodybuilder.",
+      rating: 5,
+    },
+  ];
+
+  const locations = [
+    { name: "Rishikesh (Main)", address: "Dobhal Complex, Amitgram, Gumaniwala" },
+    { name: "Doiwala", address: "Kalpatru Art Street, Dudhli Rd" },
+    { name: "Bhaniawala", address: "Main Market, Bhaniawala, Dehradun" },
+    { name: "Listrabad", address: "Listrabad, Dehradun" },
+  ];
+
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      {/* Forcing dark mode here because the hero image is dark and looks best with dark text/backgrounds */}
-      <section className="relative h-screen overflow-hidden bg-black">
-        {/* Background Image */}
+    <main className="flex flex-col min-h-screen bg-zinc-950 text-zinc-50 font-sans">
+      {/* --- HERO SECTION --- */}
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-black">
+        {/* Background Image with subtle zoom */}
         <motion.div
           initial={{ scale: 1 }}
-          animate={{ scale: 1.08 }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
+          animate={{ scale: 1.05 }}
+          transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
           className="absolute inset-0"
         >
           <Image
             src="/hero.png"
-            alt="Eddy Fitness Club"
+            alt="Intense workout at Eddy Fitness Club"
             fill
             priority
-            className="object-cover opacity-50"
+            className="object-cover opacity-40"
           />
         </motion.div>
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-linear-to-r from-black via-black/60 to-transparent z-10" />
+        {/* Gradient Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/80 to-transparent z-10" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/20 blur-[150px] rounded-full z-0" />
 
-        {/* Red Glow */}
-        <div className="absolute top-20 right-20 w-72 h-72 bg-red-600 blur-[150px] opacity-30 rounded-full z-0"></div>
-
-        {/* Content */}
-        <div className="relative z-20 max-w-7xl mx-auto px-6 h-full flex items-center">
-          <div className="max-w-3xl">
+        {/* Hero Content */}
+        <div className="relative z-20 max-w-7xl mx-auto px-6 w-full pt-20">
+          <div className="max-w-2xl">
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="uppercase tracking-[0.4em] text-red-500 font-semibold mb-6"
+              className="uppercase tracking-widest text-red-500 font-semibold mb-4 text-sm md:text-base"
             >
-              Eddy Fitness Club
+              Fit, Fitter, Fittest!
             </motion.p>
 
             <motion.h1
-              initial={{ opacity: 0, y: 80 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-6xl md:text-8xl font-black text-white leading-[0.9]"
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-6"
             >
-              BECOME THE
-              <br />
-              <span className="text-red-500">STRONGEST</span>
-              <br />
-              VERSION OF YOU
+              Unlock Your <br />
+              <span className="text-red-500">True Potential</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="mt-8 text-xl text-gray-300 max-w-xl"
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="text-lg md:text-xl text-zinc-300 mb-10 leading-relaxed"
             >
-              Train harder. Transform faster. Join Eddy Fitness Club and unlock
-              premium gym training, online coaching, and personalized nutrition
-              plans.
+              Join Eddy Fitness Club for certified nutrition planning, intense X-training, and expert coaching across Dehradun and Rishikesh. 
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="flex gap-5 mt-10 flex-wrap"
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="flex flex-wrap gap-4"
             >
               <Link
                 href="/contact"
-                className="
-              px-8 py-4
-              rounded-full
-              bg-red-600
-              hover:bg-red-700
-              text-white
-              font-bold
-              flex items-center gap-2
-              transition-all
-              hover:scale-105"
+                className="px-8 py-3.5 rounded-full bg-red-600 hover:bg-red-700 text-white font-semibold flex items-center gap-2 transition-all shadow-lg shadow-red-600/20 hover:scale-105"
               >
-                Join Now
-                <ArrowRight />
+                Start Free Trial
+                <ArrowRight size={18} />
               </Link>
-
               <Link
-                href="/services"
-                className="
-              px-8 py-4
-              rounded-full
-              border border-white/20
-              backdrop-blur-xl
-              text-white
-              hover:border-red-500
-              transition-all"
+                href="#services"
+                className="px-8 py-3.5 rounded-full border border-zinc-700 hover:border-red-500 hover:bg-zinc-900 text-white font-semibold transition-all"
               >
-                Online Coaching
+                Explore Programs
               </Link>
-            </motion.div>
-
-            {/* Glass Stats Card */}
-
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="
-          mt-16
-          grid
-          grid-cols-3
-          gap-6
-
-          backdrop-blur-xl
-
-          bg-white/10
-
-          border border-white/10
-
-          rounded-3xl
-
-          p-8
-
-          max-w-2xl
-
-          "
-            >
-              <div className="text-center">
-                <Users className="mx-auto text-red-500 mb-3" />
-
-                <h2 className="text-4xl font-black text-white">3K+</h2>
-
-                <p className="text-gray-400">Instagram Community</p>
-              </div>
-
-              <div className="text-center">
-                <Trophy className="mx-auto text-red-500 mb-3" />
-
-                <h2 className="text-4xl font-black text-white">500+</h2>
-
-                <p className="text-gray-400">Transformations</p>
-              </div>
-
-              <div className="text-center">
-                <Dumbbell className="mx-auto text-red-500 mb-3" />
-
-                <h2 className="text-4xl font-black text-white">5+</h2>
-
-                <p className="text-gray-400">Years Experience</p>
-              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ABOUT EDDY */}
-
-      <section id="about" className="relative py-32 bg-black overflow-hidden">
-        {/* Red Glow */}
-        <div className="absolute top-0 left-0 w-96 h-96 bg-red-600/20 blur-[150px]" />
-
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
-            {/* LEFT IMAGE */}
-
+      {/* --- ABOUT SECTION --- */}
+      <section id="about" className="relative py-24 bg-zinc-950">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Image Side */}
             <motion.div
-              initial={{ opacity: 0, x: -100 }}
+              initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="relative"
+              transition={{ duration: 0.6 }}
+              className="relative h-[500px] w-full rounded-2xl overflow-hidden border border-zinc-800"
             >
-              {/* Main Image */}
-
-              <div
-                className="
-        relative
-        h-[650px]
-        rounded-[40px]
-        overflow-hidden
-        border border-white/10
-        "
-              >
-                <Image
-                  src="/rope.png"
-                  alt="Eddy Fitness Coach"
-                  fill
-                  className="object-cover"
-                />
-
-                {/* Overlay */}
-
-                <div
-                  className="
-          absolute
-          inset-0
-          bg-gradient-to-t
-          from-black
-          via-black/20
-          to-transparent
-          "
-                />
-              </div>
-
-              {/* Floating Card */}
-
-              <div
-                className="
-        absolute
-        bottom-8
-        -right-10
-
-        backdrop-blur-xl
-
-        bg-white/10
-
-        border
-
-        border-white/10
-
-        px-8
-
-        py-6
-
-        rounded-3xl
-
-        shadow-2xl
-        "
-              >
-                <h3 className="text-5xl font-black text-red-500">3K+</h3>
-
-                <p className="text-gray-300">Fitness Community</p>
+              <Image
+                src="/rope.png"
+                alt="Eddy Fitness Coach"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
+              
+              {/* Floating Stat Badge */}
+              <div className="absolute bottom-6 right-6 bg-zinc-900/90 backdrop-blur-md border border-zinc-700 p-6 rounded-2xl shadow-xl">
+                <h3 className="text-3xl font-black text-red-500 mb-1">4.9/5</h3>
+                <p className="text-sm text-zinc-400 font-medium">Top Rated on JustDial</p>
               </div>
             </motion.div>
 
-            {/* RIGHT CONTENT */}
-
+            {/* Text Side */}
             <motion.div
-              initial={{ opacity: 0, x: 100 }}
+              initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
             >
-              <p
-                className="
-        uppercase
-        tracking-[0.3em]
-        text-red-500
-        font-semibold
-        mb-6
-        "
-              >
-                Meet Eddy
-              </p>
-
-              <h2
-                className="
-        text-6xl
-
-        font-black
-
-        text-white
-
-        leading-tight
-
-        mb-8
-        "
-              >
-                FITNESS IS
-                <span className="text-red-500"> MY PASSION,</span>
-                <br />
-                YOUR TRANSFORMATION IS MY MISSION.
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                More Than Just A Gym. <br />
+                <span className="text-red-500">It's A Lifestyle.</span>
               </h2>
-
-              <p
-                className="
-        text-gray-400
-
-        text-lg
-
-        leading-loose
-
-        mb-10
-        "
-              >
-                At Eddy Fitness Club, fitness is more than lifting weights. It's
-                about building confidence, discipline, and transforming your
-                life inside and outside the gym. Whether your goal is fat loss,
-                muscle building, or complete body transformation, Eddy provides
-                personalized training, nutrition guidance, and online coaching
-                to help you achieve real results.
+              <p className="text-zinc-400 text-base leading-relaxed mb-8">
+                Led by certified nutritionists and fitness experts, Eddy Fitness Club is dedicated to delivering science-backed results. Whether you are aiming for severe fat loss, bodybuilding, or general wellness, we provide the environment, equipment, and expertise you need to succeed.
               </p>
 
-              {/* FEATURES */}
-
-              <div className="space-y-6">
+              <div className="space-y-4 mb-10">
                 {[
-                  "Personalized Workout Plans",
-
-                  "Online Coaching Programs",
-
-                  "Diet & Nutrition Guidance",
-
-                  "Real Body Transformations",
-                ].map((item, index) => (
-                  <motion.div
-                    key={index}
-                    whileHover={{
-                      x: 15,
-                    }}
-                    className="
-            flex
-
-            items-center
-
-            gap-5
-
-            group
-
-            cursor-pointer
-            "
-                  >
-                    <div
-                      className="
-              h-12
-
-              w-12
-
-              rounded-full
-
-              bg-red-600/20
-
-              flex
-
-              items-center
-
-              justify-center
-              "
-                    >
-                      <CheckCircle2 className="text-red-500" />
-                    </div>
-
-                    <p
-                      className="
-              text-white
-
-              text-lg
-
-              group-hover:text-red-500
-
-              transition
-              "
-                    >
-                      {item}
-                    </p>
-                  </motion.div>
+                  "Certified Nutritionist Diet Plans",
+                  "High-Intensity X-Training",
+                  "Premium State-of-the-Art Equipment",
+                  "Online Remote Coaching Available",
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-center gap-3">
+                    <CheckCircle2 className="text-red-500 w-5 h-5 shrink-0" />
+                    <span className="text-zinc-200 font-medium">{item}</span>
+                  </div>
                 ))}
               </div>
 
-              <div className="mt-12">
-                <Link
-                  href="/contact"
-                  className="
-          inline-flex
-
-          items-center
-
-          gap-3
-
-          px-8
-
-          py-5
-
-          rounded-full
-
-          bg-red-600
-
-          hover:bg-red-700
-
-          text-white
-
-          font-bold
-
-          transition
-
-          hover:scale-105
-          "
-                >
-                  Start Your Journey
-                  <ArrowRight />
-                </Link>
-              </div>
+              <Link
+                href="/about"
+                className="text-red-500 font-semibold flex items-center gap-2 hover:text-red-400 transition-colors group w-fit"
+              >
+                Meet Coach Eddy
+                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* SERVICES */}
+      {/* --- SERVICES SECTION --- */}
+      <section id="services" className="py-24 bg-zinc-900 border-y border-zinc-800">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Premium Training Services</h2>
+            <p className="text-zinc-400">
+              From late-night leg sessions to personalized nutrition, we offer comprehensive programs to fit your schedule and goals.
+            </p>
+          </div>
 
-      <section
-      id="services"
-      className="relative py-32 bg-black overflow-hidden"
-    >
-      {/* Background Glow */}
-      <div className="absolute top-20 left-0 w-96 h-96 bg-red-600/10 blur-[150px]" />
-
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* Heading */}
-
-        <div className="text-center mb-20">
-          <p className="uppercase tracking-[0.4em] text-red-500 font-semibold mb-4">
-            OUR SERVICES
-          </p>
-
-          <h2 className="text-5xl md:text-7xl font-black text-white">
-            TRANSFORM YOUR
-            <span className="text-red-500"> BODY</span>
-          </h2>
-
-          <p className="text-gray-400 mt-8 max-w-2xl mx-auto text-lg">
-            Personalized coaching, premium training and real transformations.
-          </p>
-        </div>
-
-        {/* Cards */}
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
-          {services.map((item, index) => (
-            <motion.div
-              key={index}
-              className="h-full group"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.15,
-              }}
-              whileHover={{
-                y: -12,
-                scale: 1.03,
-              }}
-              viewport={{ once: true }}
-            >
-              <div
-                className="
-                  relative
-                  overflow-hidden
-                  rounded-[32px]
-                  border
-                  border-white/10
-                  bg-gradient-to-b
-                  from-white/5
-                  to-white/[0.02]
-                  backdrop-blur-xl
-
-                  p-10
-
-                  h-full
-                  min-h-[470px]
-
-                  flex
-                  flex-col
-
-                  transition-all
-                  duration-500
-
-                  hover:border-red-500
-                  hover:shadow-[0_0_45px_rgba(239,68,68,0.25)]
-                "
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            {services.map((srv, idx) => (
+              <motion.article
+                key={idx}
+                variants={itemVariants}
+                className="bg-zinc-950 border border-zinc-800 p-8 rounded-2xl hover:border-red-500/50 transition-colors group"
               >
-                {/* Glow */}
-
-                <div
-                  className="
-                    absolute
-                    top-0
-                    right-0
-                    w-40
-                    h-40
-                    rounded-full
-                    bg-red-600/10
-                    blur-[90px]
-
-                    group-hover:scale-150
-                    transition-all
-                    duration-700
-                  "
-                />
-
-                {/* Icon */}
-
-                <div className="text-red-500 mb-8 relative z-10">
-                  {item.icon}
+                <div className="text-red-500 mb-6 bg-red-500/10 w-16 h-16 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                  {srv.icon}
                 </div>
+                <h3 className="text-xl font-bold text-zinc-100 mb-3">{srv.title}</h3>
+                <p className="text-sm text-zinc-400 leading-relaxed">{srv.desc}</p>
+              </motion.article>
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
-                {/* Title */}
+      {/* --- REVIEWS SECTION --- */}
+      <section className="py-24 bg-zinc-950 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-red-600/5 blur-[120px] rounded-full pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Real Members, <span className="text-red-500">Real Results</span></h2>
+            <p className="text-zinc-400">Don't just take our word for it. See what our community has to say.</p>
+          </div>
 
-                <h3 className="text-2xl font-bold text-white mb-6 relative z-10">
-                  {item.title}
-                </h3>
-
-                {/* Description */}
-
-                <p className="text-gray-400 leading-relaxed flex-1 relative z-10">
-                  {item.desc}
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="grid md:grid-cols-3 gap-6"
+          >
+            {reviews.map((review, idx) => (
+              <motion.div
+                key={idx}
+                variants={itemVariants}
+                className="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 flex flex-col h-full"
+              >
+                <div className="flex gap-1 mb-6">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-red-500 text-red-500" />
+                  ))}
+                </div>
+                <p className="text-zinc-300 italic mb-8 flex-1 text-sm leading-relaxed">
+                  "{review.quote}"
                 </p>
+                <div>
+                  <h4 className="font-bold text-zinc-100">{review.name}</h4>
+                  <p className="text-xs text-red-500 mt-1">{review.branch}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
-                {/* Button */}
-
-                <button
-                  className="
-                    mt-10
-
-                    inline-flex
-                    items-center
-                    justify-center
-                    gap-3
-
-                    px-7
-                    py-4
-
-                    rounded-full
-
-                    bg-red-600
-                    text-white
-                    font-semibold
-                    text-lg
-
-                    w-fit
-
-                    transition-all
-                    duration-300
-
-                    hover:bg-red-500
-                    hover:shadow-lg
-                    hover:shadow-red-500/40
-
-                    relative
-                    z-10
-                  "
-                >
-                  Learn More
-
-                  <ArrowRight
-                    size={20}
-                    className="
-                      transition-transform
-                      duration-300
-                      group-hover:translate-x-1
-                    "
-                  />
-                </button>
+      {/* --- LOCATIONS & CTA SECTION --- */}
+      <section className="py-24 bg-zinc-900 border-t border-zinc-800">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="bg-zinc-950 rounded-3xl p-8 md:p-12 border border-zinc-800 flex flex-col lg:flex-row items-center justify-between gap-12">
+            
+            <div className="lg:w-1/2">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Find Your Nearest <br/> Eddy Fitness Club</h2>
+              <p className="text-zinc-400 mb-8 max-w-md">
+                We are rapidly growing across Uttarakhand to bring premium fitness closer to you. Drop by for a tour of our facilities.
+              </p>
+              
+              <div className="grid sm:grid-cols-2 gap-4 mb-10">
+                {locations.map((loc, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <MapPin className="text-red-500 w-5 h-5 shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-semibold text-zinc-200 text-sm">{loc.name}</h4>
+                      <p className="text-xs text-zinc-500 mt-1">{loc.address}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </motion.div>
-          ))}
+
+              <Link
+                href="/contact"
+                className="px-8 py-3.5 rounded-full bg-white text-black hover:bg-zinc-200 font-bold flex items-center gap-2 transition-all w-fit"
+              >
+                View All Locations
+                <ArrowRight size={18} />
+              </Link>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="lg:w-5/12 grid grid-cols-2 gap-4 w-full">
+              {[
+                { num: "4+", label: "Locations", icon: <MapPin /> },
+                { num: "3K+", label: "Community", icon: <Users /> },
+                { num: "500+", label: "Results", icon: <Trophy /> },
+                { num: "24/7", label: "Dedication", icon: <Clock /> },
+              ].map((stat, idx) => (
+                <div key={idx} className="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 text-center">
+                  <div className="text-red-500 flex justify-center mb-3 opacity-80">{stat.icon}</div>
+                  <h4 className="text-2xl md:text-3xl font-black text-white mb-1">{stat.num}</h4>
+                  <p className="text-xs text-zinc-400 font-medium uppercase tracking-wider">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+
+          </div>
         </div>
-      </div>
-    </section>
-
-      {/* TESTIMONIALS */}
-
-<section
-id="testimonials"
-className="relative py-32 bg-black overflow-hidden"
->
-
-{/* Glow */}
-
-<div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-red-600/10 blur-[160px]" />
-
-<div className="max-w-7xl mx-auto px-6 relative z-10">
-
-<div className="text-center mb-24">
-
-<p className="
-uppercase
-tracking-[0.4em]
-text-red-500
-font-semibold
-mb-5
-">
-
-Real Results
-
-</p>
-
-<h2 className="
-text-5xl
-md:text-7xl
-font-black
-text-white
-">
-
-MEMBER
-
-<span className="text-red-500">
-
- TRANSFORMATIONS
-
-</span>
-
-</h2>
-
-<p className="
-text-gray-400
-mt-8
-max-w-2xl
-mx-auto
-text-lg
-">
-
-People don't just join Eddy Fitness Club.
-
-They transform their lives.
-
-</p>
-
-</div>
-
-
-
-
-
-<div className="grid md:grid-cols-3 gap-8">
-
-{[
-
-{
-
-name:"Rahul",
-
-goal:"Lost 15kg",
-
-quote:
-
-"Eddy completely changed my lifestyle. The workouts, diet and motivation helped me lose 15kg in just a few months.",
-
-},
-
-{
-
-name:"Aman",
-
-goal:"Muscle Gain",
-
-quote:
-
-"I gained confidence along with muscles. The atmosphere and coaching are on another level.",
-
-},
-
-{
-
-name:"Rohit",
-
-goal:"Body Transformation",
-
-quote:
-
-"Eddy doesn't just train your body, he trains your mindset. Best decision I ever made.",
-
-}
-
-].map((item,index)=>(
-
-
-
-<motion.div
-
-key={index}
-
-initial={{opacity:0,y:50}}
-
-whileInView={{
-
-opacity:1,
-
-y:0
-
-}}
-
-transition={{
-
-duration:.6,
-
-delay:index*.15
-
-}}
-
-whileHover={{
-
-y:-10,
-
-scale:1.03
-
-}}
-
-viewport={{once:true}}
-
-className="group"
-
->
-
-<div className="
-
-relative
-
-overflow-hidden
-
-rounded-[35px]
-
-bg-white/[0.03]
-
-backdrop-blur-xl
-
-border
-
-border-white/10
-
-p-10
-
-h-full
-
-hover:border-red-500
-
-transition-all
-
-duration-500
-
-hover:shadow-[0_0_50px_rgba(239,68,68,0.25)]
-
-">
-
-
-
-{/* Glow */}
-
-<div className="
-
-absolute
-
-top-0
-
-right-0
-
-w-40
-
-h-40
-
-bg-red-600/10
-
-blur-[90px]
-
-rounded-full
-
-"/>
-
-
-
-
-
-<div className="
-
-text-[120px]
-
-absolute
-
-top-0
-
-right-6
-
-font-serif
-
-text-red-500/10
-
-leading-none
-
-">
-
-"
-
-</div>
-
-
-
-
-
-<div className="relative z-10">
-
-<div className="
-
-w-20
-
-h-20
-
-rounded-full
-
-bg-red-600/20
-
-flex
-
-items-center
-
-justify-center
-
-text-2xl
-
-font-bold
-
-text-red-500
-
-mb-8
-
-">
-
-{item.name[0]}
-
-</div>
-
-
-
-<h3 className="
-
-text-3xl
-
-font-bold
-
-text-white
-
-mb-2
-
-">
-
-{item.name}
-
-</h3>
-
-
-
-<p className="
-
-text-red-500
-
-font-semibold
-
-mb-8
-
-">
-
-{item.goal}
-
-</p>
-
-
-
-<p className="
-
-text-gray-400
-
-leading-loose
-
-text-lg
-
-">
-
-{item.quote}
-
-</p>
-
-
-<div className="
-
-flex
-
-gap-1
-
-mt-8
-
-">
-
-{
-
-[1,2,3,4,5].map(star=>(
-
-<Star
-
-key={star}
-
-className="
-
-w-5
-
-h-5
-
-fill-red-500
-
-text-red-500
-
-"
-
-/>
-
-))
-
-}
-
-</div>
-
-</div>
-
-</div>
-
-</motion.div>
-
-))}
-
-</div>
-
-</div>
-
-</section>
-      {/* Call to Action & Stats */}
-      {/* Call To Action */}
-      {/* CTA SECTION */}
-
-<section className="relative py-32 bg-black overflow-hidden">
-
-  {/* Red Glow */}
-
-  <div className="absolute left-0 top-0 w-[500px] h-[500px] bg-red-600/10 blur-[180px]" />
-
-  <div className="absolute right-0 bottom-0 w-[400px] h-[400px] bg-red-600/10 blur-[160px]" />
-
-
-
-  <div className="max-w-7xl mx-auto px-6 relative z-10">
-
-    <div className="grid lg:grid-cols-2 gap-20 items-center">
-
-      {/* IMAGE */}
-
-      <motion.div
-
-      initial={{opacity:0,x:-100}}
-
-      whileInView={{opacity:1,x:0}}
-
-      transition={{duration:.8}}
-
-      viewport={{once:true}}
-
-      className="relative"
-
-      >
-
-        <div className="
-
-        relative
-
-        h-[650px]
-
-        rounded-[40px]
-
-        overflow-hidden
-
-        border
-
-        border-white/10
-
-        ">
-
-          <Image
-
-          src="/rope.png"
-
-          alt="Eddy Fitness"
-
-          fill
-
-          className="object-cover"
-
-          />
-
-
-
-          <div className="
-
-          absolute
-
-          inset-0
-
-          bg-gradient-to-t
-
-          from-black
-
-          via-black/20
-
-          to-transparent
-
-          " />
-
-        </div>
-
-
-
-        {/* Floating Badge */}
-
-
-        <div className="
-
-        absolute
-
-        -bottom-8
-
-        right-10
-
-        bg-red-600
-
-        px-8
-
-        py-6
-
-        rounded-3xl
-
-        shadow-[0_0_60px_rgba(239,68,68,0.4)]
-
-        ">
-
-          <h3 className="
-
-          text-4xl
-
-          font-black
-
-          text-white
-
-          ">
-
-            500+
-
-          </h3>
-
-          <p className="text-white/80">
-
-            Successful Transformations
-
-          </p>
-
-        </div>
-
-
-      </motion.div>
-
-
-
-
-
-      {/* CONTENT */}
-
-
-      <motion.div
-
-      initial={{opacity:0,x:100}}
-
-      whileInView={{opacity:1,x:0}}
-
-      transition={{duration:.8}}
-
-      viewport={{once:true}}
-
-      >
-
-
-        <p className="
-
-        uppercase
-
-        tracking-[0.4em]
-
-        text-red-500
-
-        font-semibold
-
-        mb-6
-
-        ">
-
-          Ready To Transform?
-
-        </p>
-
-
-
-        <h2 className="
-
-        text-6xl
-
-        md:text-7xl
-
-        font-black
-
-        text-white
-
-        leading-[0.95]
-
-        mb-8
-
-        ">
-
-          YOUR
-
-          <span className="text-red-500">
-
-           FITNESS
-
-          </span>
-
-          <br />
-
-          JOURNEY
-
-          STARTS
-
-          TODAY
-
-        </h2>
-
-
-
-        <p className="
-
-        text-gray-400
-
-        text-xl
-
-        leading-loose
-
-        max-w-xl
-
-        mb-12
-
-        ">
-
-          Train harder.
-
-          Get stronger.
-
-          Lose fat.
-
-          Build muscle.
-
-          Become the best version of yourself with Eddy Fitness Club.
-
-        </p>
-
-
-
-        <div className="flex gap-5 flex-wrap">
-
-          <Link
-
-          href="/contact"
-
-          className="
-
-          px-9
-
-          py-5
-
-          rounded-full
-
-          bg-red-600
-
-          text-white
-
-          font-bold
-
-          shadow-[0_0_40px_rgba(239,68,68,0.4)]
-
-          hover:scale-105
-
-          transition
-
-          "
-
-          >
-
-            Join Now
-
-          </Link>
-
-
-
-          <Link
-
-          href="/contact"
-
-          className="
-
-          px-9
-
-          py-5
-
-          rounded-full
-
-          border
-
-          border-white/10
-
-          backdrop-blur-xl
-
-          text-white
-
-          hover:border-red-500
-
-          transition
-
-          "
-
-          >
-
-            Book Free Trial
-
-          </Link>
-
-
-        </div>
-
-      </motion.div>
-
-    </div>
-
-
-
-{/* STATS */}
-
-
-<div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-32">
-
-
-{[
-
-{
-
-num:"3K+",
-
-label:"Instagram Community",
-
-icon:<Users className="w-8 h-8"/>
-
-},
-
-{
-
-num:"500+",
-
-label:"Transformations",
-
-icon:<Trophy className="w-8 h-8"/>
-
-},
-
-{
-
-num:"5+",
-
-label:"Years Experience",
-
-icon:<Award className="w-8 h-8"/>
-
-},
-
-{
-
-num:"100%",
-
-label:"Dedication",
-
-icon:<Clock className="w-8 h-8"/>
-
-}
-
-].map((item,index)=>(
-
-
-<motion.div
-
-key={index}
-
-whileHover={{
-
-y:-10,
-
-scale:1.03
-
-}}
-
-className="
-
-bg-white/[0.03]
-
-border
-
-border-white/10
-
-backdrop-blur-xl
-
-rounded-[30px]
-
-p-10
-
-text-center
-
-hover:border-red-500
-
-transition
-
-"
-
->
-
-<div className="
-
-text-red-500
-
-mb-6
-
-flex
-
-justify-center
-
-">
-
-{item.icon}
-
-</div>
-
-
-
-<h3 className="
-
-text-5xl
-
-font-black
-
-text-white
-
-">
-
-{item.num}
-
-</h3>
-
-
-
-<p className="
-
-text-gray-400
-
-mt-4
-
-">
-
-{item.label}
-
-</p>
-
-</motion.div>
-
-))
-
-}
-
-</div>
-
-</div>
-
-</section>
-    </div>
+      </section>
+    </main>
   );
 }
