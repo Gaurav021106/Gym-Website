@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { 
-  Activity, LayoutDashboard, Users, CreditCard, CalendarCheck, 
-  Dumbbell, UserCog, Calendar, Utensils, MessageSquare, 
-  BarChart3, Star, Settings, ShieldAlert, Search, Bell, Crown, Globe 
+  Activity, LayoutDashboard, 
+  BarChart3, Bell, Globe 
 } from "lucide-react";
 
 export default function AdminLayout({
@@ -46,7 +45,7 @@ export default function AdminLayout({
       <main className="flex-1 flex flex-col h-full overflow-hidden bg-zinc-950">
         <header className="bg-zinc-900 border-b border-zinc-800 h-20 flex items-center justify-between px-8 shrink-0">
            <div>
-             <p className="text-sm text-zinc-400 hidden md:block">Welcome back, here's what's happening today.</p>
+             <p className="text-sm text-zinc-400 hidden md:block">Welcome back, here&apos;s what&apos;s happening today.</p>
            </div>
            
            <div className="flex items-center gap-6">
