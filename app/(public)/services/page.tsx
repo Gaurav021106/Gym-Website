@@ -1,4 +1,3 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/button" // Assuming standard shadcn card imports, adjust if different
 import { Dumbbell, Salad, Laptop, Activity, Users, Flame } from "lucide-react"
 
 export const metadata = {
