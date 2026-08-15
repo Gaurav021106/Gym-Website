@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# 🏋️‍♂️ Gym-Website
+### *Elevate Your Fitness Journey & Transform Your Body*
 
-First, run the development server:
+[![Next.js](https://img.shields.io/badge/Frontend-Next.js-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![Node.js](https://img.shields.io/badge/Backend-Node.js-green?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Styling-TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+</div>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🌟 About Gym-Website
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Gym-Website** is a modern, high-performance fitness and gym management web application designed to help fitness enthusiasts connect with professional training programs, explore top-tier services, and manage their health goals. The platform offers a sleek public interface for visitors alongside a comprehensive administrative dashboard for content and operations management.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 💡 Why We Created This Project
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* **Seamless Digital Experience:** Modern fitness centers require an engaging digital storefront to showcase workout plans, trainers, and facilities to prospective members.
+* **Streamlined Administration:** Provides gym owners and administrators with dedicated control panels to oversee blog content, services, and member engagement seamlessly.
+* **Performance & Scalability:** Built using a cutting-edge web stack to ensure lightning-fast load times, responsive mobile layouts, and an intuitive user interface.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🛠️ How We Built It (Architecture & Tech Stack)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The project is structured using a robust, component-driven modular layout:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Frontend & Public Pages (`/app/(public)`)
+* **Framework:** **Next.js App Router** for optimal SEO, server-side rendering, and smooth page transitions.
+* **Styling & UI:** Styled with **Tailwind CSS** and custom UI components (`button.tsx`) providing an energetic, dark-mode-ready aesthetic.
+* **Core Views:** Includes dedicated pages for **Home**, **About Us**, **Services**, and **Contact**.
+
+### Administration Portal (`/app/admin`)
+* **Dashboard Management:** Secure administrative routing for managing site content, dynamic blog posts (`/admin/blog`), and core operational settings.
+* **Theme Support:** Fully integrated dark and light mode toggle components (`ThemeToggle.tsx`, `ThemeProvider.tsx`).
+
+---
+
+## 🚀 Key Features
+
+* **Dynamic Public Pages:** Engaging landing pages highlighting specialized fitness services and professional training options.
+* **Admin Control Center:** Robust backend dashboard for managing fitness blogs, announcements, and site administration.
+* **Responsive Navigation & Footer:** Sleek, modern `Navbar.tsx` and `Footer.tsx` components ensuring smooth user journey across all devices.
+* **Flexible Theming:** Seamless transition between light and dark visual modes tailored for modern fitness branding.
+
+---
+
+## 📈 How This Benefits Others
+
+* **For Fitness Seekers:** Provides an inspiring, easy-to-navigate platform to discover workout programs, learn about trainers, and reach out effortlessly.
+* **For Gym Owners:** Offers an out-of-the-box digital solution to promote classes, share fitness tips via blogs, and manage online presence.
+* **For Developers:** Serves as a clean, production-ready template utilizing Next.js, TypeScript, and Tailwind CSS for rapid customization and deployment.
+
+---
+
+## 🛠️ Getting Started
+
+### Prerequisites
+* **Node.js** (v18+ recommended)
+* **npm** or **yarn**
+
+### Installation & Setup
+
+1. **Clone the Repository**
+   ```bash
+   git clone [https://github.com/Gaurav021106/Gym-Website.git](https://github.com/Gaurav021106/Gym-Website.git)
+   cd Gym-Website
