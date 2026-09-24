@@ -16,14 +16,14 @@ export const MembershipSection: React.FC = () => {
         <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
           <Badge
             variant="outline"
-            className="text-red-500 border-red-900/50 uppercase font-extrabold tracking-widest text-[10px] sm:text-[11px] mb-3 px-3 py-1"
+            className="text-red-400 border-red-900/50 uppercase font-extrabold tracking-widest text-[10px] sm:text-[11px] mb-3 px-3 py-1"
           >
             Membership Tiers
           </Badge>
           <h2 className="text-2xl sm:text-4xl font-black uppercase text-white tracking-tight leading-tight">
             Invest In Your Health
           </h2>
-          <p className="text-xs sm:text-sm text-neutral-400 mt-2 max-w-md mx-auto">
+          <p className="text-xs sm:text-sm text-neutral-300 mt-2 max-w-md mx-auto">
             Transparent pricing with multi-branch access options across Rishikesh &amp; Dehradun.
           </p>
         </div>
@@ -39,17 +39,15 @@ export const MembershipSection: React.FC = () => {
                   : "bg-neutral-900/30 border-neutral-800/80 hover:border-neutral-700"
               }`}
             >
-              {/* Popular Ribbon */}
               {plan.isPopular && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                  <Badge className="bg-red-600 hover:bg-red-600 text-white text-[10px] uppercase font-black px-3.5 py-1 rounded-full tracking-widest shadow-md">
+                  <Badge className="bg-red-600 text-white text-[10px] uppercase font-black px-3.5 py-1 rounded-full tracking-widest shadow-md">
                     Most Popular
                   </Badge>
                 </div>
               )}
 
               <div>
-                {/* Header Info */}
                 <CardHeader className="p-6 sm:p-8 pb-4">
                   <CardTitle className="text-lg sm:text-xl font-black uppercase text-white tracking-wide">
                     {plan.name}
@@ -58,19 +56,19 @@ export const MembershipSection: React.FC = () => {
                     <span className="text-3xl sm:text-4xl font-black text-white tracking-tight">
                       {plan.price}
                     </span>
-                    <span className="text-xs text-neutral-400 uppercase font-medium">
+                    <span className="text-xs text-neutral-300 uppercase font-medium">
                       / {plan.duration}
                     </span>
                   </div>
+                  <p className="text-[11px] text-neutral-400 mt-1">Starting from {plan.startingFrom}</p>
                 </CardHeader>
 
-                {/* Feature Perks List */}
                 <CardContent className="p-6 sm:p-8 pt-2">
-                  <ul className="space-y-3 sm:space-y-3.5 text-xs sm:text-sm text-neutral-300">
+                  <ul className="space-y-3 sm:space-y-3.5 text-xs sm:text-sm text-neutral-200">
                     {plan.perks.map((perk, idx) => (
                       <li key={idx} className="flex items-start gap-2.5">
-                        <div className="w-4 h-4 rounded-full bg-red-600/15 flex items-center justify-center shrink-0 mt-0.5">
-                          <Check className="w-3 h-3 text-red-500 stroke-[3]" />
+                        <div className="w-4 h-4 rounded-full bg-red-600/20 flex items-center justify-center shrink-0 mt-0.5">
+                          <Check className="w-3 h-3 text-red-400 stroke-[3]" aria-hidden="true" />
                         </div>
                         <span className="leading-relaxed">{perk}</span>
                       </li>
@@ -79,7 +77,6 @@ export const MembershipSection: React.FC = () => {
                 </CardContent>
               </div>
 
-              {/* Action Button */}
               <CardFooter className="p-6 sm:p-8 pt-2">
                 <Button
                   asChild
@@ -95,10 +92,11 @@ export const MembershipSection: React.FC = () => {
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`Enroll in the ${plan.name} membership plan via WhatsApp`}
                     className="inline-flex items-center justify-center gap-1.5"
                   >
-                    <span>Enroll In Plan</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                    <span>Enroll In {plan.name}</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                   </a>
                 </Button>
               </CardFooter>

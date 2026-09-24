@@ -3,6 +3,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { AboutSection } from "@/components/AboutSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { BranchTrainersSection } from "@/components/BranchTrainersSection";
+import { FreeTrialSection } from "@/components/FreeTrialModal";
 import { MembershipSection } from "@/components/MembershipSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { CTASection } from "@/components/CTASection";
@@ -13,6 +14,7 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <ServicesSection />
+      <FreeTrialSection />
       <BranchTrainersSection />
       <MembershipSection />
       <TestimonialsSection />
