@@ -1,18 +1,14 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  MapPin,
-  Phone,
-  ArrowUpRight,
-} from "lucide-react";
+import { MapPin, Phone, ArrowUpRight } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { BRANCHES_DATA } from "@/lib/data";
 
-const InstagramIcon = ({
-  className,
-}: {
-  className?: string;
-}) => (
+const InstagramIcon = ({ className }: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -32,246 +28,167 @@ const InstagramIcon = ({
 export function Footer() {
   return (
     <footer className="relative bg-black overflow-hidden border-t border-white/10">
-
-      {/* Glow */}
-      <div className="absolute left-0 top-0 w-[350px] h-[350px] bg-red-600/10 blur-[150px]" />
+      {/* Background Glow */}
+      <div className="absolute left-0 top-0 w-[350px] h-[350px] bg-red-600/10 blur-[150px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
-
-        <div className="grid lg:grid-cols-3 gap-16">
-
-          {/* Brand */}
-
-          <div>
-
-            <div className="flex items-center gap-4">
-
-              <div className="relative w-16 h-16">
-
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* Col 1: Brand Info */}
+          <div className="space-y-6">
+            <Link href="/" className="flex items-center gap-3.5 group">
+              <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-white/10 bg-zinc-950 flex items-center justify-center">
                 <Image
                   src="/logo.png"
-                  alt="Eddy Fitness"
+                  alt="Eddy Fitness Club Logo"
                   fill
-                  className="object-contain"
+                  sizes="48px"
+                  className="object-contain p-1"
                 />
-
               </div>
-
               <div>
-
-                <h2 className="text-2xl font-black text-white">
+                <h2 className="text-2xl font-black text-white leading-none tracking-tight">
                   EDDY
                 </h2>
-
-                <p className="text-red-500 tracking-[0.3em] text-sm">
+                <p className="text-red-500 tracking-[0.3em] text-xs font-bold mt-1">
                   FITNESS CLUB
                 </p>
-
               </div>
-
-            </div>
-
-            <p className="text-gray-400 mt-8 leading-loose max-w-sm">
-              Transform your body.
-              Build discipline.
-              Become the strongest version of yourself with Eddy Fitness Club.
-            </p>
-
-            <Link
-              href="https://instagram.com/eddyfitnessclub"
-              className="
-              mt-8
-              inline-flex
-              items-center
-              gap-3
-              text-red-500
-              font-semibold
-              hover:gap-5
-              transition-all
-              "
-            >
-
-              <InstagramIcon className="w-5 h-5" />
-
-              Follow On Instagram
-
-              <ArrowUpRight className="w-5 h-5" />
-
             </Link>
 
+            <p className="text-zinc-400 text-sm leading-relaxed">
+              Where Ordinary Bodies Become Unstoppable. Certified Fitness & Nutrition Coaching across Rishikesh & Dehradun.
+            </p>
+
+            <Button
+              asChild
+              variant="link"
+              className="text-red-500 hover:text-red-400 p-0 h-auto font-semibold inline-flex items-center gap-2 group text-sm"
+            >
+              <a
+                href="https://www.instagram.com/eddyfitnessclub/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <InstagramIcon className="w-4 h-4" />
+                <span>Follow On Instagram</span>
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </Button>
           </div>
 
-
-
-          {/* Quick Links */}
-
+          {/* Col 2: Navigation Links */}
           <div>
-
-            <h3 className="text-white text-2xl font-bold mb-8">
-
+            <h3 className="text-white text-lg font-bold mb-6 tracking-wide uppercase">
               Quick Links
-
             </h3>
-
-            <div className="space-y-5">
-
-              <Link
-                href="/"
-                className="block text-gray-400 hover:text-red-500 transition"
-              >
-                Home
-              </Link>
-
-              <Link
-                href="#about"
-                className="block text-gray-400 hover:text-red-500 transition"
-              >
-                About
-              </Link>
-
-              <Link
-                href="#services"
-                className="block text-gray-400 hover:text-red-500 transition"
-              >
-                Services
-              </Link>
-
-              <Link
-                href="#testimonials"
-                className="block text-gray-400 hover:text-red-500 transition"
-              >
-                Testimonials
-              </Link>
-
-              <Link
-                href="/contact"
-                className="block text-gray-400 hover:text-red-500 transition"
-              >
-                Contact
-              </Link>
-
-            </div>
-
+            <ul className="space-y-3.5 text-sm">
+              <li>
+                <Link href="/" className="text-zinc-400 hover:text-red-500 transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="text-zinc-400 hover:text-red-500 transition-colors">
+                  About & Vision
+                </Link>
+              </li>
+              <li>
+                <Link href="/#services" className="text-zinc-400 hover:text-red-500 transition-colors">
+                  Training Services
+                </Link>
+              </li>
+              <li>
+                <Link href="/#branches" className="text-zinc-400 hover:text-red-500 transition-colors">
+                  Branches & Trainers
+                </Link>
+              </li>
+              <li>
+                <Link href="/#membership" className="text-zinc-400 hover:text-red-500 transition-colors">
+                  Membership Plans
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-zinc-400 hover:text-red-500 transition-colors">
+                  Contact Us
+                </Link>
+              </li>
+            </ul>
           </div>
 
-
-
-          {/* Contact */}
-
+          {/* Col 3: 5 Branches */}
           <div>
-
-            <h3 className="text-white text-2xl font-bold mb-8">
-
-              Contact
-
+            <h3 className="text-white text-lg font-bold mb-6 tracking-wide uppercase">
+              Our 5 Branches
             </h3>
-
-            <div className="space-y-8">
-
-              <div className="flex gap-4">
-
-                <Phone className="text-red-500 shrink-0" />
-
-                <div>
-
-                  <p className="text-gray-500 text-sm">
-
-                    Call Us
-
-                  </p>
-
-                  <p className="text-white font-semibold">
-
-                    +91 8410411868
-
-                  </p>
-
-                </div>
-
-              </div>
-
-
-
-              <div className="flex gap-4">
-
-                <MapPin className="text-red-500 shrink-0" />
-
-                <div>
-
-                  <p className="text-gray-500 text-sm">
-
-                    Location
-
-                  </p>
-
-                  <p className="text-white font-semibold">
-
-                    Eddy Fitness Club
-
-                  </p>
-
-                </div>
-
-              </div>
-
-
-
-              <div className="flex gap-4">
-
-                <InstagramIcon className="text-red-500 w-6 h-6 shrink-0" />
-
-                <div>
-
-                  <p className="text-gray-500 text-sm">
-
-                    Instagram
-
-                  </p>
-
-                  <p className="text-white font-semibold">
-
-                    @eddyfitnessclub
-
-                  </p>
-
-                </div>
-
-              </div>
-
-            </div>
-
+            <ul className="space-y-3.5 text-sm">
+              {BRANCHES_DATA.map((branch) => (
+                <li key={branch.id}>
+                  <Link
+                    href="/#branches"
+                    className="group block text-zinc-400 hover:text-white transition-colors"
+                  >
+                    <span className="font-medium text-zinc-300 group-hover:text-red-500 transition-colors block">
+                      {branch.name}
+                    </span>
+                    <span className="text-xs text-zinc-500 block line-clamp-1 mt-0.5">
+                      {branch.city} • ★ {branch.rating.toFixed(1)} ({branch.reviewsCount})
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
+          {/* Col 4: Contact Info */}
+          <div>
+            <h3 className="text-white text-lg font-bold mb-6 tracking-wide uppercase">
+              Connect Directly
+            </h3>
+            <div className="space-y-5 text-sm">
+              <div className="flex items-start gap-3">
+                <Phone className="text-red-500 w-5 h-5 shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-zinc-500 text-xs">Call / WhatsApp</p>
+                  <a
+                    href="tel:8410411868"
+                    className="text-white font-semibold hover:text-red-500 transition-colors"
+                  >
+                    +91 8410411868
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <MapPin className="text-red-500 w-5 h-5 shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-zinc-500 text-xs">Headquarters</p>
+                  <p className="text-white font-semibold">
+                    Dobhal Complex, Amitgram, Rishikesh
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <InstagramIcon className="text-red-500 w-5 h-5 shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-zinc-500 text-xs">Direct Support</p>
+                  <p className="text-white font-semibold">DM &quot;JOIN&quot; on Instagram</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
+        {/* Separator & Footer Bottom */}
+        <Separator className="bg-white/10 mt-16 mb-8" />
 
-
-        {/* Bottom */}
-
-        <div className="border-t border-white/10 mt-20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-
-          <p className="text-gray-500 text-sm">
-
-            © 2026 Eddy Fitness Club. All Rights Reserved.
-
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-500">
+          <p>© {new Date().getFullYear()} Eddy Fitness Club. All Rights Reserved.</p>
+          <p>
+            Rishikesh & Dehradun • Uttarakhand
           </p>
-
-          <p className="text-gray-500 text-sm">
-
-            Designed by
-
-            <span className="text-red-500 font-semibold ml-2">
-
-              NextPeak
-
-            </span>
-
-          </p>
-
         </div>
-
       </div>
-
     </footer>
   );
 }

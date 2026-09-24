@@ -4,10 +4,14 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Eddy Fitness Club | Fit, Fitter, Fittest!',
-    template: '%s | Eddy Fitness Club'
+    default: 'Eddy Fitness Club | Where Ordinary Bodies Become Unstoppable',
+    template: '%s | Eddy Fitness Club',
   },
-  description: 'Join Eddy Fitness Club with branches across Rishikesh and Dehradun.',
+  description:
+    'Premier gym & fitness chain with 5 locations across Rishikesh and Dehradun. Certified Fitness & Nutrition Coaching, 24/7 access, customized diet plans, and personal training.',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
@@ -16,12 +20,21 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning>
+    <html
+      lang="en"
+      className="dark scroll-smooth"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
+      <body
+        className="bg-neutral-950 text-neutral-100 min-h-screen antialiased selection:bg-red-600 selection:text-white"
+        suppressHydrationWarning
+      >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="dark"
+          forcedTheme="dark"
+          enableSystem={false}
           disableTransitionOnChange
         >
           {children}
