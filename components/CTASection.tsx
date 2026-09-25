@@ -10,7 +10,7 @@ export const CTASection: React.FC = () => {
         <h2 className="text-3xl sm:text-5xl font-black uppercase text-white">
           Ready to Become Unstoppable?
         </h2>
-        <p className="text-neutral-400 mt-4 max-w-xl mx-auto text-sm sm:text-base">
+        <p className="text-neutral-300 mt-4 max-w-xl mx-auto text-sm sm:text-base">
           Start your transformation today. Reach out to Coach Eddy or visit our nearest club in Rishikesh or Dehradun.
         </p>
 
@@ -24,9 +24,10 @@ export const CTASection: React.FC = () => {
               href="https://wa.me/918410411868?text=JOIN"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Contact Eddy Fitness Club on WhatsApp to start training"
               className="inline-flex items-center gap-2"
             >
-              <MessageCircle className="w-4 h-4" />
+              <MessageCircle className="w-4 h-4" aria-hidden="true" />
               <span>WhatsApp: DM &quot;JOIN&quot;</span>
             </a>
           </Button>
@@ -35,36 +36,39 @@ export const CTASection: React.FC = () => {
             asChild
             variant="outline"
             size="lg"
-            className="w-full sm:w-auto px-8 py-6 bg-neutral-900 hover:bg-neutral-800 text-white border-neutral-800 font-bold uppercase text-xs tracking-wider rounded-xl"
+            className="w-full sm:w-auto px-8 py-6 bg-neutral-900 hover:bg-neutral-800 text-white border-neutral-700 font-bold uppercase text-xs tracking-wider rounded-xl"
           >
-            <a href="tel:8410411868" className="inline-flex items-center gap-2">
-              <Phone className="w-4 h-4 text-red-500" />
+            <a 
+              href="tel:8410411868" 
+              aria-label="Call Eddy Fitness Club at 8410411868"
+              className="inline-flex items-center gap-2"
+            >
+              <Phone className="w-4 h-4 text-red-400" aria-hidden="true" />
               <span>Call 8410411868</span>
             </a>
           </Button>
         </div>
 
-        <p className="mt-6 text-xs text-neutral-500 inline-flex items-center gap-1.5">
+        <p className="mt-6 text-xs text-neutral-300 inline-flex items-center gap-1.5 font-medium">
           <svg
-            aria-hidden="true"
+            className="w-4 h-4 text-neutral-300"
             viewBox="0 0 24 24"
-            className="w-3.5 h-3.5 text-neutral-400"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            aria-hidden="true"
           >
             <rect width="20" height="20" x="2" y="2" rx="5" />
             <circle cx="12" cy="12" r="4" />
-            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
           </svg>
           Instagram:{" "}
           <a
             href="https://www.instagram.com/eddyfitnessclub/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-neutral-300 underline hover:text-white"
+            aria-label="Follow Eddy Fitness Club on Instagram @eddyfitnessclub"
+            className="text-white underline hover:text-red-400 font-semibold"
           >
             @eddyfitnessclub
           </a>

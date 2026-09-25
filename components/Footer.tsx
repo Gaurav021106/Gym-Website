@@ -18,6 +18,7 @@ const InstagramIcon = ({ className }: { className?: string }) => (
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
+    aria-hidden="true"
   >
     <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
@@ -27,13 +28,11 @@ const InstagramIcon = ({ className }: { className?: string }) => (
 
 export function Footer() {
   return (
-    <footer className="relative bg-black overflow-hidden border-t border-white/10">
-      {/* Background Glow */}
-      <div className="absolute left-0 top-0 w-[350px] h-[350px] bg-red-600/10 blur-[150px] pointer-events-none" />
-
+    <footer className="relative bg-black overflow-hidden border-t border-neutral-800">
       <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Col 1: Brand Info */}
+          
+          {/* Col 1 */}
           <div className="space-y-6">
             <Link href="/" className="flex items-center gap-3.5 group">
               <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-white/10 bg-zinc-950 flex items-center justify-center">
@@ -49,66 +48,67 @@ export function Footer() {
                 <h2 className="text-2xl font-black text-white leading-none tracking-tight">
                   EDDY
                 </h2>
-                <p className="text-red-500 tracking-[0.3em] text-xs font-bold mt-1">
+                <p className="text-red-400 tracking-[0.3em] text-xs font-bold mt-1">
                   FITNESS CLUB
                 </p>
               </div>
             </Link>
 
-            <p className="text-zinc-400 text-sm leading-relaxed">
-              Where Ordinary Bodies Become Unstoppable. Certified Fitness & Nutrition Coaching across Rishikesh & Dehradun.
+            <p className="text-neutral-300 text-sm leading-relaxed">
+              Where Ordinary Bodies Become Unstoppable. Certified Fitness &amp; Nutrition Coaching across Rishikesh &amp; Dehradun.
             </p>
 
             <Button
               asChild
               variant="link"
-              className="text-red-500 hover:text-red-400 p-0 h-auto font-semibold inline-flex items-center gap-2 group text-sm"
+              className="text-red-400 hover:text-red-300 p-0 h-auto font-semibold inline-flex items-center gap-2 group text-sm"
             >
               <a
                 href="https://www.instagram.com/eddyfitnessclub/"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Follow Eddy Fitness Club on Instagram"
               >
                 <InstagramIcon className="w-4 h-4" />
                 <span>Follow On Instagram</span>
-                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
               </a>
             </Button>
           </div>
 
-          {/* Col 2: Navigation Links */}
+          {/* Col 2 */}
           <div>
-            <h3 className="text-white text-lg font-bold mb-6 tracking-wide uppercase">
+            <h3 className="text-white text-base font-bold mb-6 tracking-wide uppercase">
               Quick Links
             </h3>
             <ul className="space-y-3.5 text-sm">
               <li>
-                <Link href="/" className="text-zinc-400 hover:text-red-500 transition-colors">
+                <Link href="/" className="text-neutral-300 hover:text-red-400 transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-zinc-400 hover:text-red-500 transition-colors">
-                  About & Vision
+                <Link href="/about" className="text-neutral-300 hover:text-red-400 transition-colors">
+                  About &amp; Vision
                 </Link>
               </li>
               <li>
-                <Link href="/#services" className="text-zinc-400 hover:text-red-500 transition-colors">
+                <Link href="/#services" className="text-neutral-300 hover:text-red-400 transition-colors">
                   Training Services
                 </Link>
               </li>
               <li>
-                <Link href="/#branches" className="text-zinc-400 hover:text-red-500 transition-colors">
-                  Branches & Trainers
+                <Link href="/#branches" className="text-neutral-300 hover:text-red-400 transition-colors">
+                  Branches &amp; Trainers
                 </Link>
               </li>
               <li>
-                <Link href="/#membership" className="text-zinc-400 hover:text-red-500 transition-colors">
+                <Link href="/#membership" className="text-neutral-300 hover:text-red-400 transition-colors">
                   Membership Plans
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-zinc-400 hover:text-red-500 transition-colors">
+                <Link href="/contact" className="text-neutral-300 hover:text-red-400 transition-colors">
                   Contact Us
                 </Link>
               </li>
@@ -117,7 +117,7 @@ export function Footer() {
 
           {/* Col 3: 5 Branches */}
           <div>
-            <h3 className="text-white text-lg font-bold mb-6 tracking-wide uppercase">
+            <h3 className="text-white text-base font-bold mb-6 tracking-wide uppercase">
               Our 5 Branches
             </h3>
             <ul className="space-y-3.5 text-sm">
@@ -125,12 +125,12 @@ export function Footer() {
                 <li key={branch.id}>
                   <Link
                     href="/#branches"
-                    className="group block text-zinc-400 hover:text-white transition-colors"
+                    className="group block text-neutral-300 hover:text-white transition-colors"
                   >
-                    <span className="font-medium text-zinc-300 group-hover:text-red-500 transition-colors block">
+                    <span className="font-medium text-neutral-200 group-hover:text-red-400 transition-colors block">
                       {branch.name}
                     </span>
-                    <span className="text-xs text-zinc-500 block line-clamp-1 mt-0.5">
+                    <span className="text-xs text-neutral-300 block line-clamp-1 mt-0.5">
                       {branch.city} • ★ {branch.rating.toFixed(1)} ({branch.reviewsCount})
                     </span>
                   </Link>
@@ -139,19 +139,19 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Col 4: Contact Info */}
+          {/* Col 4 */}
           <div>
-            <h3 className="text-white text-lg font-bold mb-6 tracking-wide uppercase">
+            <h3 className="text-white text-base font-bold mb-6 tracking-wide uppercase">
               Connect Directly
             </h3>
             <div className="space-y-5 text-sm">
               <div className="flex items-start gap-3">
-                <Phone className="text-red-500 w-5 h-5 shrink-0 mt-0.5" />
+                <Phone className="text-red-400 w-5 h-5 shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
-                  <p className="text-zinc-500 text-xs">Call / WhatsApp</p>
+                  <p className="text-neutral-300 text-xs">Call / WhatsApp</p>
                   <a
                     href="tel:8410411868"
-                    className="text-white font-semibold hover:text-red-500 transition-colors"
+                    className="text-white font-semibold hover:text-red-400 transition-colors"
                   >
                     +91 8410411868
                   </a>
@@ -159,9 +159,9 @@ export function Footer() {
               </div>
 
               <div className="flex items-start gap-3">
-                <MapPin className="text-red-500 w-5 h-5 shrink-0 mt-0.5" />
+                <MapPin className="text-red-400 w-5 h-5 shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
-                  <p className="text-zinc-500 text-xs">Headquarters</p>
+                  <p className="text-neutral-300 text-xs">Headquarters</p>
                   <p className="text-white font-semibold">
                     Dobhal Complex, Amitgram, Rishikesh
                   </p>
@@ -169,9 +169,9 @@ export function Footer() {
               </div>
 
               <div className="flex items-start gap-3">
-                <InstagramIcon className="text-red-500 w-5 h-5 shrink-0 mt-0.5" />
+                <InstagramIcon className="text-red-400 w-5 h-5 shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-zinc-500 text-xs">Direct Support</p>
+                  <p className="text-neutral-300 text-xs">Direct Support</p>
                   <p className="text-white font-semibold">DM &quot;JOIN&quot; on Instagram</p>
                 </div>
               </div>
@@ -179,14 +179,11 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Separator & Footer Bottom */}
-        <Separator className="bg-white/10 mt-16 mb-8" />
+        <Separator className="bg-neutral-800 mt-16 mb-8" />
 
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-500">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-300">
           <p>© {new Date().getFullYear()} Eddy Fitness Club. All Rights Reserved.</p>
-          <p>
-            Rishikesh & Dehradun • Uttarakhand
-          </p>
+          <p>Rishikesh &amp; Dehradun • Uttarakhand</p>
         </div>
       </div>
     </footer>

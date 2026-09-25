@@ -5,7 +5,6 @@ import Image from "next/image";
 import { BRANCHES_DATA } from "@/lib/data";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Star, MapPin, Clock, Sparkles, Navigation, ExternalLink } from "lucide-react";
@@ -37,23 +36,35 @@ export const BranchTrainersSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Mobile Horizontal-Scrollable Tabs */}
-        <div className="w-full mb-8 md:mb-10">
-          <Tabs value={selectedBranchId} onValueChange={(val) => { setSelectedBranchId(val); setShowInteractiveMap(false); }} className="w-full">
-            <div className="w-full overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <TabsList className="inline-flex sm:flex sm:flex-wrap h-auto bg-neutral-900/90 border border-neutral-800 p-1.5 rounded-2xl justify-start sm:justify-center gap-1.5 min-w-max sm:min-w-0">
-                {BRANCHES_DATA.map((branch) => (
-                  <TabsTrigger
-                    key={branch.id}
-                    value={branch.id}
-                    className="data-[state=active]:bg-red-600 data-[state=active]:text-white text-neutral-300 font-bold uppercase text-[11px] sm:text-xs md:text-sm px-3.5 py-2.5 rounded-xl whitespace-nowrap shrink-0 transition-all"
-                  >
-                    {branch.name.replace("Eddy Fitness Club – ", "")}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </div>
-          </Tabs>
+        {/* Clean, Fully-Accessible Filter Pills (No Orphaned ARIA Controls) */}
+        <div className="w-full mb-8 md:mb-10 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div 
+            role="group" 
+            aria-label="Gym branch locations filter"
+            className="inline-flex sm:flex sm:flex-wrap h-auto bg-neutral-900/90 border border-neutral-800 p-1.5 rounded-2xl justify-start sm:justify-center gap-1.5 min-w-max sm:min-w-0"
+          >
+            {BRANCHES_DATA.map((branch) => {
+              const isSelected = branch.id === selectedBranchId;
+              return (
+                <button
+                  key={branch.id}
+                  type="button"
+                  aria-pressed={isSelected}
+                  onClick={() => {
+                    setSelectedBranchId(branch.id);
+                    setShowInteractiveMap(false);
+                  }}
+                  className={`font-bold uppercase text-[11px] sm:text-xs md:text-sm px-3.5 py-2.5 rounded-xl whitespace-nowrap shrink-0 transition-all ${
+                    isSelected
+                      ? "bg-red-600 text-white shadow-md shadow-red-600/30"
+                      : "text-neutral-300 hover:text-white hover:bg-neutral-800"
+                  }`}
+                >
+                  {branch.name.replace("Eddy Fitness Club – ", "")}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Active Branch Overview Card */}
@@ -61,7 +72,7 @@ export const BranchTrainersSection: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 pb-5">
             <div className="space-y-2">
               <div className="flex flex-wrap items-center gap-2.5">
-                <Badge className="bg-red-600/20 text-red-400 border-0 font-bold uppercase text-[10px] sm:text-xs">
+                <Badge className="bg-red-600/20 text-red-300 border-0 font-bold uppercase text-[10px] sm:text-xs">
                   {activeBranch.city}
                 </Badge>
                 <span className="text-amber-400 font-bold text-xs sm:text-sm inline-flex items-center gap-1">
@@ -84,16 +95,16 @@ export const BranchTrainersSection: React.FC = () => {
               <div className="bg-neutral-900 border border-neutral-800 px-3.5 py-2.5 rounded-xl flex items-center gap-2.5">
                 <Clock className="w-4 h-4 text-neutral-300 shrink-0" aria-hidden="true" />
                 <div>
-                  <span className="text-neutral-400 uppercase block font-semibold text-[9px] sm:text-[10px]">Hours</span>
-                  <span className="text-neutral-100 font-bold text-xs sm:text-sm whitespace-nowrap">{activeBranch.hours}</span>
+                  <span className="text-neutral-300 uppercase block font-semibold text-[9px] sm:text-[10px]">Hours</span>
+                  <span className="text-white font-bold text-xs sm:text-sm whitespace-nowrap">{activeBranch.hours}</span>
                 </div>
               </div>
 
               <div className="bg-neutral-900 border border-neutral-800 px-3.5 py-2.5 rounded-xl flex items-center gap-2.5">
                 <Sparkles className="w-4 h-4 text-red-400 shrink-0" aria-hidden="true" />
                 <div>
-                  <span className="text-neutral-400 uppercase block font-semibold text-[9px] sm:text-[10px]">Feature</span>
-                  <span className="text-red-400 font-bold text-xs sm:text-sm whitespace-nowrap">{activeBranch.features[0]}</span>
+                  <span className="text-neutral-300 uppercase block font-semibold text-[9px] sm:text-[10px]">Feature</span>
+                  <span className="text-red-300 font-bold text-xs sm:text-sm whitespace-nowrap">{activeBranch.features[0]}</span>
                 </div>
               </div>
             </div>
@@ -155,7 +166,7 @@ export const BranchTrainersSection: React.FC = () => {
             </div>
           </div>
 
-          {/* On-Demand Lazy Loaded Google Map Facade */}
+          {/* Lazy-Loaded Google Map Section */}
           <div>
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-300 flex items-center gap-1.5">
@@ -177,7 +188,7 @@ export const BranchTrainersSection: React.FC = () => {
             <div className="w-full h-56 sm:h-72 rounded-xl overflow-hidden border border-neutral-800 bg-neutral-900 relative">
               {showInteractiveMap ? (
                 <iframe
-                  title={`Google Map showing ${activeBranch.name}`}
+                  title={`Google Map for ${activeBranch.name}`}
                   src={activeBranch.mapEmbedUrl}
                   width="100%"
                   height="100%"

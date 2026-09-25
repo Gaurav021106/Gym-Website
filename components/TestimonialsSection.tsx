@@ -25,7 +25,8 @@ export const TestimonialsSection: React.FC = () => {
             >
               <CardContent className="p-6 flex flex-col justify-between h-full">
                 <div>
-                  <div className="flex gap-1 text-amber-400 mb-3" aria-label={`Rated ${item.rating} out of 5 stars`}>
+                  <div className="flex items-center gap-1 text-amber-400 mb-3">
+                    <span className="sr-only">Rated {item.rating} out of 5 stars</span>
                     {Array.from({ length: item.rating }).map((_, s) => (
                       <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" aria-hidden="true" />
                     ))}

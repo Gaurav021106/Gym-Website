@@ -7,20 +7,21 @@ import { ArrowRight, MessageCircle, MapPin, CheckCircle2 } from "lucide-react";
 
 export const HeroSection: React.FC = () => {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden bg-black border-b border-neutral-800">
+    <section className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-center pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden bg-black border-b border-neutral-800">
       
-      {/* 1. Optimized LCP Image */}
+      {/* 1. Mobile-Optimized LCP Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/hero.png"
-          alt="Eddy Fitness Club gym athlete training"
+          src="/hero2.png"
+          alt="Eddy Fitness Club gym floor and equipment"
           fill
           priority
-          sizes="100vw"
-          className="object-cover object-right md:object-center opacity-85 contrast-110 brightness-95"
+          fetchPriority="high"
+          quality={65}
+          sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, 100vw"
+          className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/70" />
+        <div className="absolute inset-0 bg-black/60" />
       </div>
 
       {/* 2. Content */}
@@ -33,14 +34,14 @@ export const HeroSection: React.FC = () => {
           5 Branches in Rishikesh &amp; Dehradun
         </Badge>
 
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white max-w-4xl mx-auto leading-[0.95] drop-shadow-md">
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white max-w-4xl mx-auto leading-[0.95] drop-shadow-lg">
           Where Ordinary Bodies Become{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
             Unstoppable.
           </span>
         </h1>
 
-        <p className="mt-6 text-base sm:text-lg text-neutral-200 max-w-2xl mx-auto font-normal leading-relaxed">
+        <p className="mt-6 text-base sm:text-lg text-neutral-200 max-w-2xl mx-auto font-normal leading-relaxed drop-shadow-md">
           Certified Fitness &amp; Nutrition Coaching • Customized Diet &amp; Workout Regimes • Personal Training (PT) • HYROX &amp; Community Challenges.
         </p>
 
@@ -76,7 +77,7 @@ export const HeroSection: React.FC = () => {
           </Button>
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-neutral-300 text-xs sm:text-sm font-medium">
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-neutral-200 text-xs sm:text-sm font-medium drop-shadow">
           <span className="inline-flex items-center gap-1.5">
             <CheckCircle2 className="w-4 h-4 text-red-500 shrink-0" aria-hidden="true" /> 24/7 Access (Amitgram)
           </span>
