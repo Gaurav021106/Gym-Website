@@ -12,7 +12,7 @@ export const HeroSection: React.FC = () => {
       {/* 1. Mobile-Optimized LCP Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/hero2.png"
+          src="/hero.png"
           alt="Eddy Fitness Club gym floor and equipment"
           fill
           priority
