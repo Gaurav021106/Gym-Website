@@ -37,7 +37,6 @@ The project is structured using a robust, component-driven modular layout:
 
 ### Administration Portal (`/app/admin`)
 * **Dashboard Management:** Secure administrative routing for managing site content, dynamic blog posts (`/admin/blog`), and core operational settings.
-* **Theme Support:** Fully integrated dark and light mode toggle components (`ThemeToggle.tsx`, `ThemeProvider.tsx`).
 
 ---
 
@@ -46,7 +45,6 @@ The project is structured using a robust, component-driven modular layout:
 * **Dynamic Public Pages:** Engaging landing pages highlighting specialized fitness services and professional training options.
 * **Admin Control Center:** Robust backend dashboard for managing fitness blogs, announcements, and site administration.
 * **Responsive Navigation & Footer:** Sleek, modern `Navbar.tsx` and `Footer.tsx` components ensuring smooth user journey across all devices.
-* **Flexible Theming:** Seamless transition between light and dark visual modes tailored for modern fitness branding.
 
 ---
 

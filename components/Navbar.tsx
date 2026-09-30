@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -14,6 +15,7 @@ export function Navbar({ onOpenTrial }: NavbarProps) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,18 +25,54 @@ export function Navbar({ onOpenTrial }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (pathname !== "/") {
+      setActiveSection("");
+      return;
+    }
+
+    const sectionIds = ["about", "services", "membership"];
+    let animationFrame = 0;
+
+    const updateActiveSection = () => {
+      window.cancelAnimationFrame(animationFrame);
+      animationFrame = window.requestAnimationFrame(() => {
+        const activationLine = 120;
+        const currentSection = [...sectionIds].reverse().find((id) => {
+          const section = document.getElementById(id);
+          return section && section.getBoundingClientRect().top <= activationLine;
+        });
+
+        setActiveSection(currentSection ?? "home");
+      });
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("hashchange", updateActiveSection);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("hashchange", updateActiveSection);
+    };
+  }, [pathname]);
+
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Services", href: "/#services" },
-    { name: "Memberships", href: "/#memberships" },
+    { name: "Home", href: "/", sectionId: "home" },
+    { name: "About", href: "/about", sectionId: "about" },
+    { name: "Services", href: "/#services", sectionId: "services" },
+    { name: "Memberships", href: "/#membership", sectionId: "membership" },
     { name: "Contact", href: "/contact" },
   ];
 
-  const isActive = (href: string) => {
-    if (href === "/" && pathname === "/") return true;
-    if (href.startsWith("/#")) return false;
-    return pathname.startsWith(href);
+  const isActive = (link: (typeof navLinks)[number]) => {
+    if (pathname === "/" && link.sectionId) {
+      return activeSection === link.sectionId;
+    }
+    if (link.href.startsWith("/#")) return false;
+    if (link.href === "/") return pathname === "/";
+    return pathname === link.href || pathname.startsWith(`${link.href}/`);
   };
 
   return (
@@ -75,10 +113,11 @@ export function Navbar({ onOpenTrial }: NavbarProps) {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-full transition ${
-                  isActive(link.href)
-                    ? "text-white bg-red-600/20 text-red-400 border border-red-500/30"
-                    : "text-zinc-300 hover:text-white hover:bg-zinc-800/60"
+                aria-current={isActive(link) ? "page" : undefined}
+                className={`border border-transparent px-3 py-1.5 text-xs font-semibold rounded-full transition-colors duration-200 ${
+                  isActive(link)
+                    ? "text-red-300 bg-red-600/20 border-red-500/30 hover:bg-red-600/30"
+                    : "text-zinc-300 hover:text-white hover:bg-zinc-800/60 hover:border-zinc-700/70"
                 }`}
               >
                 {link.name}
@@ -153,8 +192,9 @@ export function Navbar({ onOpenTrial }: NavbarProps) {
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
+                aria-current={isActive(link) ? "page" : undefined}
                 className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium ${
-                  isActive(link.href)
+                  isActive(link)
                     ? "bg-red-600/10 text-red-400 font-semibold"
                     : "text-zinc-300 hover:bg-zinc-900 hover:text-white"
                 }`}

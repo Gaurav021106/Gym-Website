@@ -22,9 +22,9 @@ export const BRANCHES = [
 export const INITIAL_MEMBERS: Member[] = [
   {
     id: 'efc-101',
-    name: 'Aman Sharma',
-    phone: '+919876543210',
-    email: 'aman@example.com',
+    name: 'Gaurav saklani',
+    phone: '+918279702969',
+    email: 'gaurav@example.com',
     branch: 'Rishikesh Main',
     plan: 'Quarterly',
     joinDate: '2026-06-01',

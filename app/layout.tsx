@@ -1,7 +1,13 @@
 import type { Metadata } from 'next'
+import { Montserrat } from 'next/font/google'
 import './globals.css'
-import { ThemeProvider } from '@/components/ThemeProvider'
 import { LocalBusinessSchema } from '@/components/LocalBusinessSchema'
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://eddyfitnessclub.com'),
@@ -43,7 +49,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="dark scroll-smooth"
+      className={`${montserrat.variable} dark scroll-smooth`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
@@ -51,15 +57,7 @@ export default function RootLayout({
         <LocalBusinessSchema />
       </head>
       <body className="bg-neutral-950 text-neutral-100 min-h-screen antialiased selection:bg-red-600 selection:text-white" suppressHydrationWarning>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          forcedTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   )

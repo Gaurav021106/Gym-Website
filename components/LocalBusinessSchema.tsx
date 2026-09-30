@@ -1,50 +1,48 @@
-import React from "react";
-import { BRANCHES_DATA, DOMAIN_URL, PHONE_NUMBER } from "@/lib/data";
-
-export const LocalBusinessSchema: React.FC = () => {
-  const schemaGraph = {
+export default function LocalBusinessSchema() {
+  const schemaData = {
     "@context": "https://schema.org",
-    "@graph": BRANCHES_DATA.map((branch) => ({
-      "@type": "ExerciseGym",
-      "@id": `${DOMAIN_URL}/#branch-${branch.id}`,
-      name: branch.name,
-      url: DOMAIN_URL,
-      telephone: PHONE_NUMBER,
-      priceRange: "₹₹",
-      image: `${DOMAIN_URL}/hero.png`,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: branch.address,
-        addressLocality: branch.city,
-        addressRegion: "Uttarakhand",
-        postalCode: branch.postalCode,
-        addressCountry: "IN",
-      },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: branch.geo.latitude,
-        longitude: branch.geo.longitude,
-      },
-      openingHoursSpecification: branch.openingHoursSpecification.map((spec) => ({
+    "@type": "ExerciseGym",
+    name: "Eddy Fitness Club",
+    image: "https://eddyfitness.com/hero.png",
+    description:
+      "Certified Fitness & Nutrition Coaching across Rishikesh, Dehradun & Haridwar.",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Rishikesh",
+      addressRegion: "Uttarakhand",
+      addressCountry: "IN",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 30.0869,
+      longitude: 78.2676,
+    },
+    url: "https://eddyfitness.com",
+    telephone: "+91-0000000000",
+    priceRange: "₹₹",
+    openingHoursSpecification: [
+      {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: spec.dayOfWeek,
-        opens: spec.opens,
-        closes: spec.closes,
-      })),
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: branch.rating.toString(),
-        reviewCount: branch.reviewsCount.toString(),
-        bestRating: "5",
-        worstRating: "1",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ],
+        opens: "06:00",
+        closes: "22:00",
       },
-    })),
+    ],
   };
 
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
     />
   );
-};
+}
+
+export { LocalBusinessSchema };
