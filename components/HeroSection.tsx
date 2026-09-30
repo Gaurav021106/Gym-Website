@@ -36,7 +36,7 @@ export const HeroSection: React.FC = () => {
 
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white max-w-4xl mx-auto leading-[0.95] drop-shadow-lg">
           Where Ordinary Bodies Become{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-red-500 to-orange-500">
             Unstoppable.
           </span>
         </h1>
