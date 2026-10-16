@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { Menu, X, ShieldAlert, PhoneCall, ChevronRight } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { Menu, X, LogIn, PhoneCall, ChevronRight, User, Shield, LogOut, ChevronDown } from "lucide-react";
 
 interface NavbarProps {
   onOpenTrial?: () => void;
@@ -13,9 +13,15 @@ interface NavbarProps {
 
 export function Navbar({ onOpenTrial }: NavbarProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+
+  // User session state
+  const [user, setUser] = useState<{ name: string; email: string; role?: string } | null>(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +30,45 @@ export function Navbar({ onOpenTrial }: NavbarProps) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Fetch logged-in user info
+  useEffect(() => {
+    async function fetchUserSession() {
+      try {
+        const res = await fetch("/api/auth/me", { cache: "no-store" });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.user) {
+            setUser(data.user);
+          }
+        }
+      } catch (err) {
+        console.error("Not authenticated");
+      }
+    }
+    fetchUserSession();
+
+    // Close dropdown on outside click
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      setUser(null);
+      setDropdownOpen(false);
+      router.push("/");
+      router.refresh();
+    } catch (err) {
+      console.error("Logout failed", err);
+    }
+  };
 
   useEffect(() => {
     if (pathname !== "/") {
@@ -74,6 +119,9 @@ export function Navbar({ onOpenTrial }: NavbarProps) {
     if (link.href === "/") return pathname === "/";
     return pathname === link.href || pathname.startsWith(`${link.href}/`);
   };
+
+  // Helper to check if logged-in user is admin (adjust email or add role check based on your database schema)
+  const isAdmin = user && (user.email === "saklanigaurav326@gmail.com" || user.role === "admin");
 
   return (
     <header
@@ -127,20 +175,66 @@ export function Navbar({ onOpenTrial }: NavbarProps) {
 
           {/* Right Action Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            {/* Quick Access to Admin Dashboard */}
-            <Link
-              href="/admin"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-800 bg-zinc-900/80 text-xs font-semibold text-zinc-300 hover:text-white hover:border-red-500/50 hover:bg-red-950/20 transition group"
-            >
-              <ShieldAlert className="h-3.5 w-3.5 text-red-500 group-hover:scale-110 transition" />
-              <span>Admin Portal</span>
-            </Link>
+            {user ? (
+              <div className="relative" ref={dropdownRef}>
+                {/* User Profile Pill Button */}
+                <button
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="flex items-center gap-2.5 rounded-full border border-zinc-700 bg-zinc-900/90 px-4 py-1.5 text-xs font-semibold text-white hover:border-red-500/50 transition shadow-md cursor-pointer"
+                >
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-red-600 text-white font-bold text-[10px]">
+                    <User className="h-3.5 w-3.5" />
+                  </div>
+                  <span className="max-w-[130px] truncate">{user.name}</span>
+                  <ChevronDown className={`h-3.5 w-3.5 text-zinc-400 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`} />
+                </button>
+
+                {/* Dropdown Card */}
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-64 rounded-2xl border border-zinc-800 bg-zinc-950 p-2.5 shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-150 backdrop-blur-xl">
+                    <div className="border-b border-zinc-800/80 px-3 py-2.5">
+                      <p className="text-xs font-bold text-white truncate">{user.name}</p>
+                      <p className="text-[11px] text-zinc-400 truncate mt-0.5">{user.email}</p>
+                    </div>
+
+                    <div className="pt-1.5 space-y-1">
+                      {isAdmin && (
+                        <Link
+                          href="/admin"
+                          className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-medium text-zinc-200 hover:bg-zinc-900 hover:text-white transition"
+                          onClick={() => setDropdownOpen(false)}
+                        >
+                          <Shield className="h-4 w-4 text-red-500" />
+                          <span>Admin Dashboard</span>
+                        </Link>
+                      )}
+
+                      <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-medium text-red-400 hover:bg-red-500/10 transition text-left cursor-pointer"
+                      >
+                        <LogOut className="h-4 w-4 text-red-400" />
+                        <span>Logout</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg border border-zinc-800 bg-zinc-900/80 text-xs font-semibold text-zinc-300 hover:text-white hover:border-red-500/50 hover:bg-red-950/20 transition group"
+              >
+                <LogIn className="h-3.5 w-3.5 text-red-500 group-hover:scale-110 transition" />
+                <span>Login</span>
+              </Link>
+            )}
 
             {/* Free Trial / CTA */}
             {onOpenTrial ? (
               <button
                 onClick={onOpenTrial}
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-red-950/50 transition transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-red-950/50 transition transform hover:-translate-y-0.5 cursor-pointer"
               >
                 Free Day Pass
               </button>
@@ -156,28 +250,30 @@ export function Navbar({ onOpenTrial }: NavbarProps) {
 
           {/* Mobile Hamburger Toggle */}
           <div className="flex md:hidden items-center gap-2">
-            <Link
-              href="/admin"
-              className="p-2 rounded-lg border border-zinc-800 bg-zinc-900 text-red-500 hover:bg-zinc-800"
-              title="Admin Portal"
-            >
-              <ShieldAlert className="h-4 w-4" />
-            </Link>
-            {/* Mobile menu toggle */}
+            {user ? (
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-800 bg-zinc-900 text-xs font-semibold text-white"
+              >
+                <User className="h-3.5 w-3.5 text-red-500" />
+                <span className="max-w-[90px] truncate">{user.name}</span>
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="p-2 rounded-lg border border-zinc-800 bg-zinc-900 text-red-500 hover:bg-zinc-800"
+                title="Login"
+              >
+                <LogIn className="h-4 w-4" />
+              </Link>
+            )}
+
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-lg border border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white"
-              aria-label={
-                mobileMenuOpen
-                  ? "Close navigation menu"
-                  : "Open navigation menu"
-              }
+              aria-label="Open navigation menu"
             >
-              {mobileMenuOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
@@ -186,6 +282,13 @@ export function Navbar({ onOpenTrial }: NavbarProps) {
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-zinc-800 bg-zinc-950/95 backdrop-blur-xl px-4 py-5 space-y-4">
+          {user && (
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-3">
+              <p className="text-xs font-bold text-white truncate">{user.name}</p>
+              <p className="text-[11px] text-zinc-400 truncate">{user.email}</p>
+            </div>
+          )}
+
           <nav className="flex flex-col space-y-1">
             {navLinks.map((link) => (
               <Link
@@ -206,14 +309,40 @@ export function Navbar({ onOpenTrial }: NavbarProps) {
           </nav>
 
           <div className="pt-3 border-t border-zinc-800/80 flex flex-col gap-2">
-            <Link
-              href="/admin"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border border-red-500/30 bg-red-950/20 text-xs font-bold text-red-400 hover:bg-red-950/40 transition"
-            >
-              <ShieldAlert className="h-4 w-4" />
-              Admin Portal Dashboard
-            </Link>
+            {user ? (
+              <>
+                {isAdmin && (
+                  <Link
+                    href="/admin"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border border-zinc-800 bg-zinc-900 text-xs font-bold text-white hover:bg-zinc-800 transition"
+                  >
+                    <Shield className="h-4 w-4 text-red-500" />
+                    Admin Dashboard
+                  </Link>
+                )}
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    handleLogout();
+                  }}
+                  className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border border-red-500/30 bg-red-950/20 text-xs font-bold text-red-400 hover:bg-red-950/40 transition cursor-pointer"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border border-red-500/30 bg-red-950/20 text-xs font-bold text-red-400 hover:bg-red-950/40 transition"
+              >
+                <LogIn className="h-4 w-4" />
+                Login to Account
+              </Link>
+            )}
+
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
